@@ -44,7 +44,8 @@ public class Todo {
         } else if (args.get(0).compareTo("-q")!=0) {
             FileHandling f = new FileHandling();
             Task task = new Task(args.get(0).replaceAll("^\"|\"$", ""));
-            System.out.println(f.addTask(todoFileName,task)?task.toString()+" added.":"Something went wrong");
+            // todo: handling more args (no "")
+            System.out.println(f.addTask(todoFileName,task)?task.task+" added.":"Something went wrong");
         }
     }
 

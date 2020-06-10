@@ -12,7 +12,8 @@ public class FileHandling {
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
-                tasks.add(new Task(myReader.nextLine()));
+                String json = myReader.nextLine();
+                tasks.add(new Task(json.split(":")));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -28,7 +29,7 @@ public class FileHandling {
                 // Open given file in append mode.
                 BufferedWriter out = new BufferedWriter(
                         new FileWriter(fileName, true));
-                out.write(task.toString()+"\n");
+                out.write(task.toFile()+"\n");
                 out.close();
                 return true;
             }
