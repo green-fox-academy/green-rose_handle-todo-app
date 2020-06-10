@@ -8,6 +8,6 @@ public class PrintUsage {
         System.out.println("  -a   Adds a new task");
         System.out.println("  -r   Removes an task");
         System.out.println("  -c   Completes an task");
-
+        System.out.println();
     }
 }
