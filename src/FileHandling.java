@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -24,6 +23,19 @@ public class FileHandling {
     }
 
     public boolean addTask(String fileName, Task task){
-        return true;
+        {
+            try {
+                // Open given file in append mode.
+                BufferedWriter out = new BufferedWriter(
+                        new FileWriter(fileName, true));
+                out.write(task.toString()+"\n");
+                out.close();
+                return true;
+            }
+            catch (IOException e) {
+                System.out.println("An error occurred while i/o the file: "+ fileName);
+                return false;
+            }
+        }
     }
 }
