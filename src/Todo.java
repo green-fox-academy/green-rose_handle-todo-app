@@ -9,7 +9,7 @@ public class Todo {
     //public List<String> arguments = new ArrayList<>();
 
     public static void main(String[] args) {
-        List<String> allowedArguments = List.of("-l", "-a" );
+        List<String> allowedArguments = List.of("-l","-a","-c", "-r");
         List <String>arguments = new ArrayList<>();
         arguments.addAll(Arrays.asList(args));
         if (arguments.size()==0) PrintUsage.printUsage();
@@ -30,13 +30,21 @@ public class Todo {
                 arguments.remove(0);
                 aCase(arguments);
             break;
+            case "-r":
+                arguments.remove(0);
+                rCase(arguments);
+                break;
+            case "-c":
+                arguments.remove(0);
+                cCase(arguments);
+                break;
 
         }
     }
 
     private static void aCase(List<String> args) {
         if (args.size()==0){
-            System.out.println("New task (or '-q' for quit):");
+            System.out.println("Input new task (or '-q' for quit):");
             Scanner s = new Scanner(System.in);
             String input = s.nextLine();
             args.add(0,input);
@@ -60,6 +68,44 @@ public class Todo {
             for (Task task: tasks) {
                 System.out.println(i+" - "+task);
                 i++;
+            }
+        }
+    }
+
+    private static void rCase(List<String> args) {
+        if (args.size()==0){
+            System.out.println("Remove which task (or '-q' for quit):");
+            Scanner s = new Scanner(System.in);
+            String input = s.nextLine();
+            args.add(0,input);
+            rCase(args);
+        } else if (args.get(0).compareTo("-q")!=0) {
+            FileHandling f = new FileHandling();
+            List<Task> tasks = new ArrayList<>();
+            tasks = f.getTasks(todoFileName);
+            Integer numberOfDeletedTask=Integer.parseInt(args.get(0));
+            if (numberOfDeletedTask>0 && numberOfDeletedTask<=tasks.size()) {
+                Task deletedTask = tasks.remove(numberOfDeletedTask-1);
+                System.out.println(f.rewriteTask(todoFileName,tasks)?deletedTask+" deleted.":"Something went wrong");
+            }
+        }
+    }
+
+    private static void cCase(List<String> args) {
+        if (args.size()==0){
+            System.out.println("Check which task (or '-q' for quit):");
+            Scanner s = new Scanner(System.in);
+            String input = s.nextLine();
+            args.add(0,input);
+            cCase(args);
+        } else if (args.get(0).compareTo("-q")!=0) {
+            FileHandling f = new FileHandling();
+            List<Task> tasks = new ArrayList<>();
+            tasks = f.getTasks(todoFileName);
+            Integer numberOfCheckedTask=Integer.parseInt(args.get(0));
+            if (numberOfCheckedTask>0 && numberOfCheckedTask<=tasks.size()) {
+               tasks.get(numberOfCheckedTask-1).setStatus(true);
+               System.out.println(f.rewriteTask(todoFileName,tasks)?tasks.get(numberOfCheckedTask-1)+" checked.":"Something went wrong");
             }
         }
     }

@@ -39,4 +39,22 @@ public class FileHandling {
             }
         }
     }
+    public boolean rewriteTask(String fileName, List<Task> tasks){
+        {
+            try {
+                // Open given file in append mode.
+                BufferedWriter out = new BufferedWriter(
+                        new FileWriter(fileName, false));
+                for (Task task:tasks) {
+                    out.write(task.toFile()+"\n");
+                }
+                out.close();
+                return true;
+            }
+            catch (IOException e) {
+                System.out.println("An error occurred while i/o the file: "+ fileName);
+                return false;
+            }
+        }
+    }
 }
