@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class FileHandling {
     public boolean rewriteTask(String fileName, List<Task> tasks){
         {
             try {
-                // Open given file in append mode.
+                // Open given file in rewrite mode.
                 BufferedWriter out = new BufferedWriter(
                         new FileWriter(fileName, false));
                 for (Task task:tasks) {

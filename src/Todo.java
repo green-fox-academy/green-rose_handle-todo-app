@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Todo {
     public static String todoFileName = "todo.todo";
+    private static FileHandling f = new FileHandling();
 
     public static void main(String[] args) {
         List<String> allowedArguments = List.of("-l","-a","-c", "-r","-la");
@@ -47,7 +48,7 @@ public class Todo {
         if (args.size()==0){
             System.out.println("Unable to add: no task provided");
         } else {
-            FileHandling f = new FileHandling();
+
             for (String arg: args) {
                 Task task = new Task(arg.replaceAll("^\"|\"$", ""));
                 System.out.println(f.addTask(todoFileName,task)?task.task+" added.":"Something went wrong");
@@ -56,16 +57,14 @@ public class Todo {
     }
 
     private static void lCase(boolean all){
-        FileHandling f = new FileHandling();
+
         List<Task> tasks = f.getTasks(todoFileName);
         if (tasks.isEmpty()){
             System.out.println("No todos for today! :)");
         } else {
-            int i = 1;
-            for (Task task: tasks) {
-                if (!task.isStatus()) System.out.println(i+" - "+task);
-                else if (all) System.out.println(i+" - "+task);
-                i++;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (!tasks.get(i).isStatus()) System.out.println(i+" - "+tasks.get(i));
+                else if (all) System.out.println(i+" - "+tasks.get(i));
             }
         }
     }
@@ -74,7 +73,7 @@ public class Todo {
         if (args.size()==0){
             System.out.println("Unable to remove: no index provided");
         } else {
-            FileHandling f = new FileHandling();
+
             List<Task> tasks = f.getTasks(todoFileName);
             for (String arg: args) {
                 try {
@@ -97,7 +96,7 @@ public class Todo {
         if (args.size()==0){
             System.out.println("Unable to check: no index provided");
         } else {
-            FileHandling f = new FileHandling();
+
             List<Task> tasks = f.getTasks(todoFileName);
             for (String arg:args) {
                 try {
