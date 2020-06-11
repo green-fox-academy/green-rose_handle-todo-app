@@ -44,12 +44,8 @@ public class Todo {
 
     private static void aCase(List<String> args) {
         if (args.size()==0){
-            System.out.println("Input new task (or '-q' for quit):");
-            Scanner s = new Scanner(System.in);
-            String input = s.nextLine();
-            args.add(0,input);
-            aCase(args);
-        } else if (args.get(0).compareTo("-q")!=0) {
+            System.out.println("Unable to add: no task provided");
+        } else {
             FileHandling f = new FileHandling();
             Task task = new Task(args.get(0).replaceAll("^\"|\"$", ""));
             // todo: handling more args (no "")
