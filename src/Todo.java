@@ -9,7 +9,7 @@ public class Todo {
     //public List<String> arguments = new ArrayList<>();
 
     public static void main(String[] args) {
-        List<String> allowedArguments = List.of("-l","-a","-c", "-r");
+        List<String> allowedArguments = List.of("-l","-a","-c", "-r","-la");
         List <String>arguments = new ArrayList<>();
         arguments.addAll(Arrays.asList(args));
         if (arguments.size()==0) PrintUsage.printUsage();
@@ -24,7 +24,9 @@ public class Todo {
     private static void todo(List<String> arguments) {
         String arg = arguments.get(0);
         switch (arg) {
-            case "-l": lCase();
+            case "-l": lCase(false);
+                break;
+            case "-la": lCase(true);
                 break;
             case "-a":
                 arguments.remove(0);
@@ -53,7 +55,7 @@ public class Todo {
         }
     }
 
-    private static void lCase(){
+    private static void lCase(boolean all){
         FileHandling f = new FileHandling();
         List<Task> tasks = new ArrayList<>();
         tasks = f.getTasks(todoFileName);
@@ -62,7 +64,8 @@ public class Todo {
         } else {
             int i = 1;
             for (Task task: tasks) {
-                System.out.println(i+" - "+task);
+                if (!task.isStatus()) System.out.println(i+" - "+task);
+                else if (all) System.out.println(i+" - "+task);
                 i++;
             }
         }
