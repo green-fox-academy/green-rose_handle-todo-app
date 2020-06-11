@@ -57,8 +57,7 @@ public class Todo {
 
     private static void lCase(boolean all){
         FileHandling f = new FileHandling();
-        List<Task> tasks = new ArrayList<>();
-        tasks = f.getTasks(todoFileName);
+        List<Task> tasks = f.getTasks(todoFileName);
         if (tasks.isEmpty()){
             System.out.println("No todos for today! :)");
         } else {
@@ -76,8 +75,7 @@ public class Todo {
             System.out.println("Unable to remove: no index provided");
         } else {
             FileHandling f = new FileHandling();
-            List<Task> tasks = new ArrayList<>();
-            tasks = f.getTasks(todoFileName);
+            List<Task> tasks = f.getTasks(todoFileName);
             for (String arg: args) {
                 try {
                     Integer numberOfDeletedTask=Integer.parseInt(arg);
