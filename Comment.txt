@@ -1,0 +1,14 @@
+int i = 1;
+            for (Task task: tasks) {
+                if (!task.isStatus()) System.out.println(i+" - "+task);
+                else if (all) System.out.println(i+" - "+task);
+                i++;
+
+This for each would be definetely more readable if you use the standart for cycle
+
+Minor stuff, but it is pretty hard to find any big bugs in your code :D 
+Integer numberOfDeletedTask=Integer.parseInt(arg); no need to use Integer Object here.
+
+I really like the wayy how oyu divided your code into separated classes, it should be done this way to follow the SRP principle, but there is no need to create a this object   FileHandling f = new FileHandling();   in every method, wouldn't it be better if you jjust create it for the whole class? as a property/field?
+
+but overall, great job!

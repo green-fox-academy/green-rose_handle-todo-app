@@ -77,7 +77,7 @@ public class Todo {
             List<Task> tasks = f.getTasks(todoFileName);
             for (String arg: args) {
                 try {
-                    Integer numberOfDeletedTask=Integer.parseInt(arg);
+                    int numberOfDeletedTask=Integer.parseInt(arg);
                     if (numberOfDeletedTask>0 && numberOfDeletedTask<=tasks.size()) {
                         Task deletedTask = tasks.remove(numberOfDeletedTask-1);
                         System.out.println(f.rewriteTask(todoFileName,tasks)?deletedTask+" deleted.":"Something went wrong");
@@ -100,7 +100,7 @@ public class Todo {
             List<Task> tasks = f.getTasks(todoFileName);
             for (String arg:args) {
                 try {
-                    Integer numberOfCheckedTask=Integer.parseInt(arg);
+                    int numberOfCheckedTask=Integer.parseInt(arg);
                     if (numberOfCheckedTask>0 && numberOfCheckedTask<=tasks.size()) {
                         tasks.get(numberOfCheckedTask-1).setStatus(true);
                         System.out.println(f.rewriteTask(todoFileName,tasks)?tasks.get(numberOfCheckedTask-1)+" checked.":"Something went wrong");
