@@ -74,38 +74,40 @@ public class Todo {
 
     private static void rCase(List<String> args) {
         if (args.size()==0){
-            System.out.println("Remove which task (or '-q' for quit):");
-            Scanner s = new Scanner(System.in);
-            String input = s.nextLine();
-            args.add(0,input);
-            rCase(args);
-        } else if (args.get(0).compareTo("-q")!=0) {
+            System.out.println("Unable to remove: no index provided");
+        } else {
             FileHandling f = new FileHandling();
             List<Task> tasks = new ArrayList<>();
             tasks = f.getTasks(todoFileName);
+            try {
             Integer numberOfDeletedTask=Integer.parseInt(args.get(0));
             if (numberOfDeletedTask>0 && numberOfDeletedTask<=tasks.size()) {
                 Task deletedTask = tasks.remove(numberOfDeletedTask-1);
                 System.out.println(f.rewriteTask(todoFileName,tasks)?deletedTask+" deleted.":"Something went wrong");
+            } else{
+                System.out.println("Unable to remove: index is out of bound");
+            }
+            } catch (NumberFormatException e){
+                System.out.println("Index must be number");
             }
         }
     }
 
     private static void cCase(List<String> args) {
         if (args.size()==0){
-            System.out.println("Check which task (or '-q' for quit):");
-            Scanner s = new Scanner(System.in);
-            String input = s.nextLine();
-            args.add(0,input);
-            cCase(args);
-        } else if (args.get(0).compareTo("-q")!=0) {
+            System.out.println("Unable to check: no index provided");
+        } else {
             FileHandling f = new FileHandling();
             List<Task> tasks = new ArrayList<>();
             tasks = f.getTasks(todoFileName);
-            Integer numberOfCheckedTask=Integer.parseInt(args.get(0));
-            if (numberOfCheckedTask>0 && numberOfCheckedTask<=tasks.size()) {
-               tasks.get(numberOfCheckedTask-1).setStatus(true);
-               System.out.println(f.rewriteTask(todoFileName,tasks)?tasks.get(numberOfCheckedTask-1)+" checked.":"Something went wrong");
+            try {
+                Integer numberOfCheckedTask=Integer.parseInt(args.get(0));
+                if (numberOfCheckedTask>0 && numberOfCheckedTask<=tasks.size()) {
+                    tasks.get(numberOfCheckedTask-1).setStatus(true);
+                    System.out.println(f.rewriteTask(todoFileName,tasks)?tasks.get(numberOfCheckedTask-1)+" checked.":"Something went wrong");
+                } else System.out.println("Unable to remove: index is out of bound.");
+            } catch (NumberFormatException e){
+                System.out.println("Unable to remove: index is not a number");
             }
         }
     }
