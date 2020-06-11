@@ -1,12 +1,11 @@
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Todo {
     public static String todoFileName = "todo.todo";
-    //public List<String> arguments = new ArrayList<>();
 
     public static void main(String[] args) {
         List<String> allowedArguments = List.of("-l","-a","-c", "-r","-la");
@@ -49,9 +48,10 @@ public class Todo {
             System.out.println("Unable to add: no task provided");
         } else {
             FileHandling f = new FileHandling();
-            Task task = new Task(args.get(0).replaceAll("^\"|\"$", ""));
-            // todo: handling more args (no "")
-            System.out.println(f.addTask(todoFileName,task)?task.task+" added.":"Something went wrong");
+            for (String arg: args) {
+                Task task = new Task(arg.replaceAll("^\"|\"$", ""));
+                System.out.println(f.addTask(todoFileName,task)?task.task+" added.":"Something went wrong");
+            }
         }
     }
 
