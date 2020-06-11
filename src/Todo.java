@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Todo {
     public static String todoFileName = "todo.todo";
+    private static FileHandling f = new FileHandling();
 
     public static void main(String[] args) {
         List<String> allowedArguments = List.of("-l","-a","-c", "-r","-la");
@@ -56,17 +57,14 @@ public class Todo {
     }
 
     private static void lCase(boolean all){
-        FileHandling f = new FileHandling();
-        List<Task> tasks = new ArrayList<>();
-        tasks = f.getTasks(todoFileName);
+
+        List<Task> tasks = f.getTasks(todoFileName);
         if (tasks.isEmpty()){
             System.out.println("No todos for today! :)");
         } else {
-            int i = 1;
-            for (Task task: tasks) {
-                if (!task.isStatus()) System.out.println(i+" - "+task);
-                else if (all) System.out.println(i+" - "+task);
-                i++;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (!tasks.get(i).isStatus()) System.out.println(i+" - "+tasks.get(i));
+                else if (all) System.out.println(i+" - "+tasks.get(i));
             }
         }
     }
@@ -75,12 +73,11 @@ public class Todo {
         if (args.size()==0){
             System.out.println("Unable to remove: no index provided");
         } else {
-            FileHandling f = new FileHandling();
-            List<Task> tasks = new ArrayList<>();
-            tasks = f.getTasks(todoFileName);
+
+            List<Task> tasks = f.getTasks(todoFileName);
             for (String arg: args) {
                 try {
-                    Integer numberOfDeletedTask=Integer.parseInt(arg);
+                    int numberOfDeletedTask=Integer.parseInt(arg);
                     if (numberOfDeletedTask>0 && numberOfDeletedTask<=tasks.size()) {
                         Task deletedTask = tasks.remove(numberOfDeletedTask-1);
                         System.out.println(f.rewriteTask(todoFileName,tasks)?deletedTask+" deleted.":"Something went wrong");
@@ -99,11 +96,10 @@ public class Todo {
         if (args.size()==0){
             System.out.println("Unable to check: no index provided");
         } else {
-            FileHandling f = new FileHandling();
             List<Task> tasks = f.getTasks(todoFileName);
             for (String arg:args) {
                 try {
-                    Integer numberOfCheckedTask=Integer.parseInt(arg);
+                    int numberOfCheckedTask=Integer.parseInt(arg);
                     if (numberOfCheckedTask>0 && numberOfCheckedTask<=tasks.size()) {
                         tasks.get(numberOfCheckedTask-1).setStatus(true);
                         System.out.println(f.rewriteTask(todoFileName,tasks)?tasks.get(numberOfCheckedTask-1)+" checked.":"Something went wrong");
